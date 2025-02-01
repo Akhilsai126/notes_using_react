@@ -3,11 +3,12 @@ import { Fragment } from "react";
 import { Sidebar } from "../../components/Sidebar";
 import { Notescard } from "../../components/Notescard";
 import { useNotes } from "../../context/notes-context";
+
  
 
 export const Home = () => {
 
-    const {title,text,notes,archive,notesDispatch}=useNotes();
+    const {title,text,notes,archive,important,bin,notesDispatch}=useNotes();
      
    
 
@@ -38,7 +39,7 @@ export const Home = () => {
     const pinnedNotes = notes?.length>0 && notes.filter(({isPinned}) => isPinned);
     const otherNotes =  notes?.length>0 && notes.filter(({isPinned}) => !isPinned);
 
-    console.log(archive);
+    console.log(bin);
 
 
 

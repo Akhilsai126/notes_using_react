@@ -1,4 +1,5 @@
 import {v4 as uuid} from 'uuid';
+import { Important } from '../pages/Important';
 
 export const notesReducer = (state , {type,payload})=>{
      switch(type){
@@ -50,6 +51,30 @@ export const notesReducer = (state , {type,payload})=>{
                     notes: noteToRestore ? [...state.notes, noteToRestore] : state.notes, // Add back to notes
                     archive: state.archive.filter(({ id }) => id !== payload.id), // Remove from archive
                 };
+        case 'IMPORTANT':
+            return{
+                ...state,
+                important : [...state.important,state.notes.find(({id})=>id===payload.id)],
+                notes : state.notes.filter(({id})=> id !== payload.id),
+            }
+        case "UNIMPORTANT":
+                const noteToRestore1 = state.important.find(({ id }) => id === payload.id);
+                return {
+                    ...state,
+                    notes: noteToRestore1 ? [...state.notes, noteToRestore1] : state.notes, // Add back to notes
+                    important: state.important.filter(({ id }) => id !== payload.id), // Remove from important
+                };
+        case 'ADD_TO_BIN':
+            return{
+                ...state ,
+                bin:[...state.bin,state.notes.find(({id})=>id===payload.id)],
+                notes:state.notes.filter(({id})=>id!==payload.id),
+            }
+        case 'REMOVE':
+            return{
+                ...state,
+                bin: state.bin.filter(({id})=>id!==payload.id),
+            }
             
         default:
             return state
