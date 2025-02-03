@@ -31,9 +31,7 @@ export const Notescard = ({ id, title, text, isPinned }) => {
   };
 
   const isNotesInArchive = findNotesInArchive(archive, id);
-
   const isNotesInImportant = findNotesInImportant(important, id);
-
   const isNotesInBin = findNotesInBin(bin, id);
 
   const onImportantClick = (id) => {
@@ -62,11 +60,11 @@ export const Notescard = ({ id, title, text, isPinned }) => {
 
   return (
     <div
-      className="w-[250px] border border-neutral-800 p-2 rounded-md"
+      className="w-[250px] max-h-[300px] border border-neutral-800 p-2 rounded-md overflow-hidden"
       key={id}
     >
       <div className="flex justify-between">
-        <p>{title}</p>
+        <p className="truncate">{title}</p>
         {!isNotesInArchive && !isNotesInImportant && !isNotesInBin && (
           <button onClick={() => onPinClick(id)}>
             <span
@@ -82,45 +80,47 @@ export const Notescard = ({ id, title, text, isPinned }) => {
 
       <hr className="border-t border-gray-400 my-2" />
 
-      <div className="flex flex-col">
-        <p>{text}</p>
-        <div className="ml-auto">
-          {!isNotesInImportant && !isNotesInBin && (
-            <button onClick={() => onArchiveClick(id)}>
-              <span
-                className={
-                  isNotesInArchive
-                    ? `material-icons`
-                    : `material-icons-outlined`
-                }
-              >
-                archive
-              </span>
-            </button>
-          )}
+      {/* Scrollable text container */}
+      <div className="flex flex-col max-h-[200px] overflow-y-auto p-1">
+        <p>{text}</p> {/* Full text visibility */}
+      </div>
 
-          {!isNotesInArchive && !isNotesInImportant && (
-            <button onClick={() => onDeleteClick(id)}>
-              <span className="material-icons">delete</span>
-            </button>
-          )}
+      {/* Fixed position for buttons */}
+      <div className="ml-auto flex gap-2 mt-2">
+        {!isNotesInImportant && !isNotesInBin && (
+          <button onClick={() => onArchiveClick(id)}>
+            <span
+              className={
+                isNotesInArchive
+                  ? `material-icons`
+                  : `material-icons-outlined`
+              }
+            >
+              archive
+            </span>
+          </button>
+        )}
 
-          {/* button for important */}
+        {!isNotesInArchive && !isNotesInImportant && (
+          <button onClick={() => onDeleteClick(id)}>
+            <span className="material-icons">delete</span>
+          </button>
+        )}
 
-          {!isNotesInArchive && !isNotesInBin && (
-            <button onClick={() => onImportantClick(id)}>
-              <span
-                className={
-                  isNotesInImportant
-                    ? "material-icons"
-                    : "material-icons-outlined"
-                }
-              >
-                label_important
-              </span>
-            </button>
-          )}
-        </div>
+        {/* Button for marking as important */}
+        {!isNotesInArchive && !isNotesInBin && (
+          <button onClick={() => onImportantClick(id)}>
+            <span
+              className={
+                isNotesInImportant
+                  ? "material-icons"
+                  : "material-icons-outlined"
+              }
+            >
+              label_important
+            </span>
+          </button>
+        )}
       </div>
     </div>
   );
