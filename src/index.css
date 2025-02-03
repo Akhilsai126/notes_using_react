@@ -16,3 +16,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Add this to the Notescard component if needed */
+.notescard {
+  max-height: 100%;
+  overflow: hidden;
+}
+

@@ -8,7 +8,7 @@ import { useNotes } from "../../context/notes-context";
 
 export const Home = () => {
 
-    const {title,text,notes,archive,important,bin,notesDispatch}=useNotes();
+    const {title,text,notes,bin,notesDispatch}=useNotes();
      
    
 
