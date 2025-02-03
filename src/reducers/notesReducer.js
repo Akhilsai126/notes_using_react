@@ -1,5 +1,5 @@
 import {v4 as uuid} from 'uuid';
-import { Important } from '../pages/Important';
+
 
 export const notesReducer = (state , {type,payload})=>{
      switch(type){
